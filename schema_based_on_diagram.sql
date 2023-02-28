@@ -17,6 +17,8 @@ CREATE TABLE medical_histories(
 	status text
 );
 
+CREATE INDEX patient_id_index ON medical_histories(patient_id);
+
 CREATE TABLE invoices(
    id serial Primary key,
    total_amount decimal,
@@ -24,6 +26,8 @@ CREATE TABLE invoices(
    payed_at timestamp,
    medical_history_id integer References medical_histories (id)
 );
+
+CREATE INDEX history_id_index ON invoices(medical_history_id);
 
 CREATE TABLE invoice_items(
    id serial Primary key,
@@ -33,6 +37,8 @@ CREATE TABLE invoice_items(
    invoice_id integer References invoices (id),
    treatment_id integer References treatments (id)
 );
+
+CREATE INDEX treatment_id_index ON invoice_items(treatment_id);
 
 Create table med_hist_treat(
    medical_history_id integer References medical_histories (id),
